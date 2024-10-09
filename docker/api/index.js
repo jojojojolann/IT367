@@ -6,6 +6,6 @@ app.get('/feature/:code', (req, res) => {
   res.json({ code: code, enabled: true });
 });
 
-app.listen(3000, () => {
-  console.log('API is running on port 3000');
+app.listen(80, () => {
+  console.log('API is running on port 80');
 });
