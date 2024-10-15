@@ -1,8 +1,7 @@
 {
   "name": "enseirb",
   "version": "1.0.0",
-  "main": "src/index.mjs",
-  "type": "module",
+  "main": "src/index.js",
   "scripts": {
     "api:clean": "sudo docker stop feature-api; docker rmi feature/api",
     "api:build": "sudo docker buildx build -f api/Dockerfile -t feature/api .",
