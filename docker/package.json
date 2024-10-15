@@ -1,0 +1,25 @@
+{
+  "name": "enseirb",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "api:clean": "sudo docker stop feature-api; docker rmi feature/api",
+    "api:build": "sudo docker buildx build -f api/Dockerfile -t feature/api .",
+    "api:run": "sudo docker run -d --rm --name feature-api -p 3000:80 feature/api",
+    "api:all": "sudo npm run api:clean; npm run api:build; npm run api:run",
+    "nginx:clean": "sudo docker stop feature-nginx; docker rm feature-nginx; docker rmi feature/nginx",
+    "nginx:build": "sudo docker buildx build -f nginx/Dockerfile -t feature/nginx ./nginx",
+    "nginx:run": "sudo docker run -d --name feature-nginx -p 80:8080 feature/nginx",
+    "nginx:all": "sudo npm run nginx:clean; npm run nginx:build; npm run nginx:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "fastify": "^5.0.0",
+    "redis": "^4.7.0"
+  }
+}
