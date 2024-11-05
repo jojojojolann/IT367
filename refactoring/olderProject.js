@@ -1,32 +1,47 @@
-function getRandomElement(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+// Méthodes de génération de données aléatoires
+function getRandomArrayElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
 }
 
-function getRandomInt(min, max) {
+function getRandomIntegerInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const planetNames = ["Aqua", "Zyron", "Thalor", "Nox", "Verdana", "Kromos", "Luna", "Solaris"];
-const biomes = ["désert", "forêt tropicale", "océan", "montagne", "toundra", "plaines", "volcanique"];
-const resources = ["minerai", "eau", "carburant", "bois", "plantes médicinales", "cristaux", "énergie solaire"];
+// Données pour la génération des planètes
+const PLANET_NAMES = ["Aqua", "Zyron", "Thalor", "Nox", "Verdana", "Kromos", "Luna", "Solaris"];
+const BIOMES = ["désert", "forêt tropicale", "océan", "montagne", "toundra", "plaines", "volcanique"];
+const RESOURCES = ["minerai", "eau", "carburant", "bois", "plantes médicinales", "cristaux", "énergie solaire"];
 
 class Planet {
     constructor(name) {
-        this.name = name || getRandomElement(planetNames);
-        this.biome = getRandomElement(biomes);
-        this.population = getRandomInt(1000, 1000000);
-        this.resources = this.generateResources();
+        this.name = name || getRandomArrayElement(PLANET_NAMES);
+        this.biome = this.assignRandomBiome();
+        this.population = this.generateRandomPopulation();
+        this.resources = this.generateUniqueResources();
     }
 
-    generateResources() {
-        const numResources = getRandomInt(1, 3);
-        const availableResources = [];
-        for (let i = 0; i < numResources; i++) {
-            availableResources.push(getRandomElement(resources));
+    // Attribue un biome aléatoire à la planète
+    assignRandomBiome() {
+        return getRandomArrayElement(BIOMES);
+    }
+
+    // Génère une population aléatoire pour la planète
+    generateRandomPopulation() {
+        return getRandomIntegerInRange(1000, 1000000); // Population entre 1,000 et 1,000,000
+    }
+
+    // Génère une liste unique de ressources aléatoires
+    generateUniqueResources() {
+        const numberOfResources = getRandomIntegerInRange(1, 3);
+        const selectedResources = new Set();
+        
+        while (selectedResources.size < numberOfResources) {
+            selectedResources.add(getRandomArrayElement(RESOURCES));
         }
-        return [...new Set(availableResources)];
+        return Array.from(selectedResources);
     }
 
+    // Fournit une description détaillée de la planète
     describe() {
         return `Planète ${this.name} : 
         - Biome : ${this.biome}
@@ -36,19 +51,19 @@ class Planet {
 }
 
 class SolarSystem {
-    constructor(numPlanets) {
-        this.planets = this.generatePlanets(numPlanets);
+    constructor(numberOfPlanets) {
+        this.planets = this.createPlanets(numberOfPlanets);
     }
 
-    generatePlanets(numPlanets) {
-        const planets = [];
-        for (let i = 0; i < numPlanets; i++) {
-            const planetName = getRandomElement(planetNames) + "-" + getRandomInt(1, 100);
-            planets.push(new Planet(planetName));
-        }
-        return planets;
+    // Crée un ensemble de planètes pour le système solaire
+    createPlanets(numberOfPlanets) {
+        return Array.from({ length: numberOfPlanets }, () => {
+            const planetName = `${getRandomArrayElement(PLANET_NAMES)}-${getRandomIntegerInRange(1, 100)}`;
+            return new Planet(planetName);
+        });
     }
 
+    // Fournit une description complète du système solaire
     describe() {
         console.log("Système Solaire Généré :");
         this.planets.forEach((planet, index) => {
@@ -56,16 +71,18 @@ class SolarSystem {
         });
     }
 
-    findRichestPlanet() {
-        return this.planets.reduce((richest, planet) => 
-            planet.population > richest.population ? planet : richest
+    // Trouve la planète avec la population la plus élevée
+    getMostPopulatedPlanet() {
+        return this.planets.reduce((mostPopulated, currentPlanet) => 
+            currentPlanet.population > mostPopulated.population ? currentPlanet : mostPopulated
         );
     }
 }
 
-const mySolarSystem = new SolarSystem(5);
-mySolarSystem.describe();
+// Création et affichage d'un système solaire
+const generatedSolarSystem = new SolarSystem(5);
+generatedSolarSystem.describe();
 
 console.log("\nPlanète la plus peuplée :");
-const richestPlanet = mySolarSystem.findRichestPlanet();
-console.log(richestPlanet.describe());
+const mostPopulatedPlanet = generatedSolarSystem.getMostPopulatedPlanet();
+console.log(mostPopulatedPlanet.describe());
