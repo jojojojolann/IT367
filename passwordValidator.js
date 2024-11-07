@@ -4,3 +4,5 @@ function validatePassword(password) {
     const LENGTH = password.length >= 8;
     return LENGTH && hasNumber && hasLetter;
 }
+
+module.exports = { validatePassword };
