@@ -2,10 +2,10 @@ import { ACCOUNT_LIST } from "./database.mjs";
 
 export const accountDAO = {
   insertAccount(account) {
-    ACCOUNT_LIST.accounts.push(account);
+    ACCOUNT_LIST.push(account);
   },
   retrieveAccountList() {
-    return ACCOUNT_LIST.accounts.map(({ id, lastName, firstName }) => ({
+    return ACCOUNT_LIST.map(({ id, lastName, firstName }) => ({
       id,
       lastName,
       firstName
@@ -21,6 +21,6 @@ export const accountDAO = {
     }
   },
   retrieveAccount(id) {
-    return ACCOUNT_LIST.accounts.find((a) => a.id === id);
+    return ACCOUNT_LIST.find((a) => a.id === id);
   },
 };

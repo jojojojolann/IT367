@@ -4,7 +4,7 @@ import { ACCOUNT_LIST } from './database.mjs';
 
 export const accountService = {
   addAccount(lastName, firstName) {
-    const account = new Account(1, lastName, firstName, null);
+    const account = new Account(null, lastName, firstName, null);
     accountDAO.insertAccount(account);
     
     return account;
@@ -17,8 +17,6 @@ export const accountService = {
     if (account) {
       account.lastName = lastName;
       account.firstName = firstName;
-
-      accountDAO.updateAccount(account);
     } else {
       console.log(`Compte avec l'id ${id} non trouvé.`);
     }
