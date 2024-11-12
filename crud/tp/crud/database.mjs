@@ -1,1 +1,3 @@
-export const ACCOUNT_LIST = [];
+export const ACCOUNT_LIST = {
+    accounts: [],
+};
