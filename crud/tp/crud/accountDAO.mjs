@@ -11,6 +11,16 @@ export const accountDAO = {
       firstName
     }));
   },
-  updateAccount(account) {},
-  retrieveAccount(id) {},
+  updateAccount(updatedAccount) {
+    const index = ACCOUNT_LIST.accounts.findIndex(account => account.id === updatedAccount.id);
+    if (index !== -1) {
+      ACCOUNT_LIST.accounts[index] = updatedAccount;
+      console.log('Compte mis à jour :', updatedAccount);
+    } else {
+      console.log(`Compte avec l'id ${updatedAccount.id} non trouvé.`);
+    }
+  },
+  retrieveAccount(id) {
+    return ACCOUNT_LIST.accounts.find((a) => a.id === id);
+  },
 };
