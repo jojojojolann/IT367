@@ -1,13 +1,13 @@
 import { accountCommand } from "./accountCommand.mjs";
 import { accountQuery } from "./accountQuery.mjs";
 
-accountCommand.addAccount("DENIS", "lhdenis");
+accountCommand.addAccount("John", "Doe");
 
 let accounts = accountQuery.getAccountList();
 console.log("Initial List of Accounts:", accounts);
 
 const accountId = accounts[0].id; 
-accountCommand.saveAccount(accountId, "denis", "lh");
+accountCommand.saveAccount(accountId, "Jane", "Doe");
 
 accounts = accountQuery.getAccountList();
 console.log("List of Accounts after update:", accounts);

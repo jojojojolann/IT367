@@ -1,4 +1,5 @@
 import { ACCOUNT_LIST } from "./database.mjs";
+import { cache } from "./cache.mjs";
 
 export const accountQueryDAO = {
     retrieveAccountList,
@@ -10,13 +11,11 @@ function retrieveAccountList(id) {
 }
 
 function retrieveAccount(id) {
-  const account = ACCOUNT_LIST.find((account) => account.id === id);
-  if (account) {
-    
+  // const account = ACCOUNT_LIST.find((account) => account.id === id);
+  const accountFromCache = cache.accountCache[id];
+  if (accountFromCache) {
     return {
-      id: account.id,
-      name: `${account.lastName} ${account.firstName}`,
-      creationDate: account.creationDate,
+      accountFromCache
     };
   }
   return null; 
